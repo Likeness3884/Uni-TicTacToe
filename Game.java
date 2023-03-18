@@ -32,12 +32,19 @@ public class Game
 			CheckWin(turn);
 			if (bWin)
 			{
+				DrawBoard();
 				DrawWin(turn);
-				return;
+				break;
 			}
 
 			if (turn == 1) turn = 2;
 			else turn = 1;
+		}
+
+		if (CheckRetry())
+		{
+			ReloadData();
+			Start();
 		}
 	}
 
@@ -87,6 +94,19 @@ public class Game
 	}
 
 	// --------------------------
+
+	private void ReloadData()
+	{
+		for (int r = 0; r < 4; r++)
+		{
+			for (int c = 0; c < 4; c++)
+			{
+				board[r][c] = 0;
+			}
+		}
+
+		bWin = false;
+	}
 
 	private void LockCells()
 	{
@@ -153,5 +173,17 @@ public class Game
 		// TODO: Check Diagonal
 		
 		return bWin;
+	}
+
+	private boolean CheckRetry()
+	{
+		System.out.print("Do you want to play again? [Y/n] ");
+		
+		boolean bRetry = true;
+		
+		char chInput = scanner.next().charAt(0);
+		if (chInput == 'n' || chInput == 'N') bRetry = false;
+		
+		return bRetry;
 	}
 }
