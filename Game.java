@@ -30,8 +30,15 @@ public class Game
 			DrawBoard();
 			DrawInput(turn);
 
-			if (bPlayerOption) CPUTurn(turn);
-			else UserInput(turn);
+			if (bPlayerOption)
+			{
+				if (turn == 1) UserInput(turn);
+				else CPUTurn(turn);
+			}
+			else
+			{
+				UserInput(turn);
+			}
 
 			CheckWin(turn);
 			if (bWin)
@@ -94,7 +101,11 @@ public class Game
 
 	private void DrawWin(int playerNum)
 	{
-		if (bPlayerOption) System.out.println("+ === CPU WON! === +");
+		if (bPlayerOption)
+		{
+			if (playerNum == 1) System.out.println("+ === PLAYER WON! === +");
+			else System.out.println("+ === CPU WON! === +");
+		}
 		else System.out.println("+ === PLAYER " + playerNum + " WON! === +");
 	}
 
