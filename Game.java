@@ -3,6 +3,7 @@ import java.util.Random;
 
 public class Game
 {
+	boolean bPlayerOption = false; // false: human vs human | true: human vs cpu
 	private int[][] board = {
 		{ 0, 0, 0, 0 },
 		{ 0, 0, 0, 0 },
@@ -18,6 +19,8 @@ public class Game
 	public void Start()
 	{
 		// start
+		PlayerOption();
+
 		LockCells();
 
 		// update
@@ -27,7 +30,8 @@ public class Game
 			DrawBoard();
 			DrawInput(turn);
 
-			UserInput(turn);
+			if (bPlayerOption) CPUTurn(turn);
+			else UserInput(turn);
 
 			CheckWin(turn);
 			if (bWin)
@@ -90,10 +94,24 @@ public class Game
 
 	private void DrawWin(int playerNum)
 	{
-		System.out.println("+ == PLAYER " + playerNum + " WON! === +");
+		if (bPlayerOption) System.out.println("+ === CPU WON! === +");
+		else System.out.println("+ === PLAYER " + playerNum + " WON! === +");
 	}
 
 	// --------------------------
+
+	private void PlayerOption()
+	{
+		System.out.println("1. Human vs Human");
+		System.out.println("2. Human vs CPU");
+		System.out.print("Choose Option: [1/2] ");
+
+		int option = scanner.nextInt();
+		if (option == 1) bPlayerOption = false;
+		else if (option == 2) bPlayerOption = true;
+
+		System.out.println();
+	}
 
 	private void ReloadData()
 	{
@@ -129,6 +147,16 @@ public class Game
 		int row = cell / 4;
 		int col = cell % 4;
 		
+		board[row][col] = playerNum;
+	}
+
+	private void CPUTurn(int playerNum)
+	{
+		int cell = rand.nextInt(16);
+
+		int row = cell / 4;
+		int col = cell % 4;
+
 		board[row][col] = playerNum;
 	}
 
