@@ -209,14 +209,88 @@ public class Game
 			}
 		}
 
-		// TODO: Check Diagonal
-		
+		// Check Diagonal
+		bWin = true;
+		int c = 0;
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[1+j][j] != playerNum)
+			{
+				bWin = false;
+				break;
+			}
+		}
+		if (bWin) return true;
+		bWin = true;
+		c = 3;
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[1+j][c] != playerNum)
+			{
+				bWin = false;
+				break;
+			}
+			c--;
+		}
+		if (bWin) return true;
+		bWin = true;
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[j][1+j] != playerNum)
+			{
+				bWin = false;
+				break;
+			}
+		}
+		if (bWin) return true;
+		bWin = true;
+		c = 2;
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[j][c] != playerNum)
+			{
+				bWin = false;
+				break;
+			}
+			c--;
+		}
+		if (bWin) return true;
+		for (int i = 0; i < 2; i++)
+		{
+			bWin = true;
+			for (int j = i; j < 3 + i; j++)
+			{
+				if (board[j][j] != playerNum)
+				{
+					bWin = false;
+					break;
+				}
+			}
+			if (bWin) return true;
+		}
+		c = 3;
+		for (int i = 0; i < 2; i++)
+		{
+			bWin = true;
+			for (int j = 0; j < 3; j++)
+			{
+				if (board[i+j][c] != playerNum)
+				{
+					bWin = false;
+					break;
+				}
+				c--;
+			}
+			if (bWin) return true;
+			c = 2;
+		}
+
 		return bWin;
 	}
 
 	private boolean CheckRetry()
 	{
-		System.out.print("Do you want to play again? [Y/n] ");
+		System.out.print("Do you want to play again? [y/n] ");
 		
 		boolean bRetry = true;
 		
